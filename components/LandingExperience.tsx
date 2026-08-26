@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const WHATSAPP_URL =
   "https://wa.me/917020727961?text=Hi%20Florals%20and%20Frames!%20I'd%20love%20to%20talk%20about%20a%20wedding%20website%20for%20us.";
-const DEMO_URL = "https://templates.floralsandframes.com/templates";
+const DEMO_URL = "https://templates.floralsandframes.com";
 
 const PHOTOS = {
   hero: "https://images.unsplash.com/photo-1731576089245-c2ac9dc7a158?auto=format&fit=crop&fm=jpg&q=88&w=2400",
