@@ -5,6 +5,12 @@ import { useEffect, useRef } from "react";
 const WHATSAPP_URL =
   "https://wa.me/917020727961?text=Hi%20Florals%20and%20Frames!%20I'd%20love%20to%20talk%20about%20a%20wedding%20website%20for%20us.";
 const DEMO_URL = "https://templates.floralsandframes.com";
+const EMAIL = "enquiries@floralsandframes.com";
+const EMAIL_URL = `mailto:${EMAIL}?subject=${encodeURIComponent(
+  "Wedding website enquiry",
+)}&body=${encodeURIComponent(
+  "Hi Florals and Frames!\n\nWe'd love to hear about your packages and pricing. Here's a little about us:\n\n- Names:\n- Wedding date:\n- Style / vibe we love:\n\nThank you!",
+)}`;
 
 const PHOTOS = {
   hero: "https://images.unsplash.com/photo-1731576089245-c2ac9dc7a158?auto=format&fit=crop&fm=jpg&q=88&w=2400",
@@ -573,6 +579,7 @@ export default function LandingExperience() {
             <h2>Give your guests<br /><em>something to feel.</em></h2>
             <p>Tell us your date, your style and a little about the two of you. We’ll turn it into one beautiful link.</p>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">Start a conversation <span>↗</span></a>
+            <p className="final-email">Prefer email? <a href={EMAIL_URL}>{EMAIL}</a></p>
           </div>
         </section>
       </main>
@@ -593,6 +600,7 @@ export default function LandingExperience() {
             <a href="#stories">Approach</a>
             <a href={DEMO_URL} target="_blank" rel="noreferrer">Live demo ↗</a>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">WhatsApp ↗</a>
+            <a href={EMAIL_URL}>Email ↗</a>
           </div>
           <small>© {new Date().getFullYear()} Florals & Frames. Made for love stories.</small>
         </div>

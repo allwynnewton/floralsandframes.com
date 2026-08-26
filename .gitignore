@@ -3,6 +3,9 @@
 /out
 /build
 
+# local Claude Code tooling / editor config
+/.claude
+
 # TypeScript build cache
 *.tsbuildinfo
 .DS_Store

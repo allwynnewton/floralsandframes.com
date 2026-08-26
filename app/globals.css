@@ -293,6 +293,9 @@ h2 em, .statement-quote em, .footer-top h2 em { font-weight: 300; font-style: it
 .final-content h2 em { color: #dec5b6; }
 .final-content p { max-width: 560px; line-height: 1.75; color: rgba(255,255,255,.7); margin: 0 0 2.5rem; font-size: .9rem; }
 .final-content > a { background: rgba(250,247,241,.96); color: var(--ink); }
+.final-email { margin: 1.6rem 0 0 !important; font-size: .74rem; letter-spacing: .04em; color: rgba(255,255,255,.6); }
+.final-email a { color: rgba(255,255,255,.9); border-bottom: 1px solid rgba(255,255,255,.4); padding-bottom: .1rem; transition: border-color .3s ease; }
+.final-email a:hover { border-color: rgba(255,255,255,.9); }
 
 /* FOOTER */
 .site-footer { background: #efe9e0; }
