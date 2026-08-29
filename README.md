@@ -1,32 +1,94 @@
-# Florals & Frames — Landing Page
+# Florals & Frames — Marketing Landing Page
 
-A marketing landing page for **Florals & Frames**, a Goa-based studio that
-designs cinematic, story-led wedding websites (built after reviewing their
-live showcase site at floralsandframes.com, the "Brendon & Sarah" demo).
+> Handoff notes so any fresh chat/session has the full picture. Keep this updated.
+
+## What this is
+
+This folder is the **marketing/landing site for the _Florals and Frames_ business**
+— a Goa-based studio that designs cinematic, story-led **wedding websites**. This
+is the page a prospective couple lands on to learn what the studio does, see a
+demo, view package tiers, and get in touch.
+
+**Important — this is NOT the wedding invitation itself.** There are two separate
+things:
+
+| Thing | What it is | Where it lives |
+|---|---|---|
+| **This landing page** | Marketing site for the company | `floralsandframes.com` (apex) |
+| **The "Brendon & Sarah" demo** | A cinematic wedding-invite template (fictional couple) | `templates.floralsandframes.com` |
+
+The landing page's **"Live demo"** links point at `https://templates.floralsandframes.com`.
+The demo template is a **different repo** (`my-first-website` locally →
+`github.com/allwynnewton/templates.floralsandframes.com-brendon-and-sarah`). Don't
+confuse the two.
+
+## Hosting & deploy — IMPORTANT
+
+- **`floralsandframes.com` is hosted on Hostinger** (NOT Vercel).
+- **Hostinger's CDN over-caches HTML.** After every deploy you MUST **purge/clear
+  the Hostinger CDN cache**, or it keeps serving stale HTML that references deleted
+  JS/CSS chunks → "page couldn't load" on first visit (a reload masks it). This bit
+  the demo site before; assume the same here.
+
+## Git
+
+- Remote: **`github.com/allwynnewton/floralsandframes.com`** (branch `main`).
+- `.claude/` (local Claude Code tooling, e.g. `launch.json`) is gitignored.
 
 ## Stack
 
-- Next.js 14 (App Router) + TypeScript
-- Tailwind CSS
-- `next/font` for self-hosted Google Fonts (Fraunces + Work Sans)
-- No external UI or animation libraries — scroll reveals are a small
-  IntersectionObserver hook (`components/Reveal.tsx`)
+- **Next.js 14** (App Router) · React 18 · TypeScript · **Tailwind CSS v3**
+- Fonts via `next/font/google`: **Cormorant Garamond** (display/italic) + **Manrope**
+  (body/UI). ⚠️ Note the CSS variables are named misleadingly: `--font-fraunces`
+  is actually Cormorant Garamond and `--font-work-sans` is actually Manrope (see
+  `app/layout.tsx`).
+- **GSAP + ScrollTrigger v3.13.0** are loaded at runtime from the **jsDelivr CDN**
+  (not an npm dependency) inside `LandingExperience.tsx`. They drive the scroll
+  choreography, parallax, pinned story stack, and horizontal showcase.
+
+## Architecture — how to change things
+
+**The entire page is ONE component: [`components/LandingExperience.tsx`](components/LandingExperience.tsx).**
+`app/page.tsx` just renders `<LandingExperience />`. All copy, the photo URLs, the
+GSAP animation setup, and every section (hero → intro/manifesto → process/"chapters"
+→ showcase → packages → final CTA → footer) live in that single file. All styling
+is in [`app/globals.css`](app/globals.css).
+
+- ⚠️ **The standalone section files are LEGACY and UNUSED** — `Hero.tsx`,
+  `Manifesto.tsx`, `Process.tsx`, `Features.tsx`, `Showcase.tsx`, `Packages.tsx`,
+  `FinalCta.tsx`, `Footer.tsx`, `Header.tsx`, `Reveal.tsx`, `icons.tsx`. Nothing
+  imports them. Editing them changes nothing on the live page. They're leftovers
+  from an earlier multi-component structure. **Edit `LandingExperience.tsx` instead.**
+
+### Key constants (top of `LandingExperience.tsx`)
+
+- `WHATSAPP_URL` — `wa.me/917020727961` with a prefilled message. **Primary CTA.**
+- `DEMO_URL` — `https://templates.floralsandframes.com` (the "Live demo" links).
+- `EMAIL` / `EMAIL_URL` — `enquiries@floralsandframes.com` as a `mailto:` with a
+  prefilled subject + body. Secondary contact, shown in the **final CTA** ("Prefer
+  email?") and the **footer links** ("Email ↗").
+- `PHOTOS` — an object of **Unsplash** image URLs (hero, chapel, couple, etc.).
+
+## Contact points on the page
+
+- **WhatsApp** `+91 70207 27961` — the main call-to-action (header, hero, final CTA,
+  footer). Update the `WHATSAPP_URL` constant if it changes.
+- **Email** `enquiries@floralsandframes.com` — secondary option in the final CTA and
+  footer.
 
 ## Design notes
 
-- **Palette:** warm ivory paper (`#F8F2EA`), deep botanical green (`#33402F`),
-  dusty rose (`#B4707C`) and antique gold (`#A9834A`) — pulling the "florals"
-  (botanical green/rose) and "frames" (gold corner brackets) directly from
-  the brand name, rather than a generic template palette.
-- **Type:** Fraunces (display/italic) paired with Work Sans (body/UI).
-- **Signature element:** the gold corner brackets in the hero and around the
-  showcase mockup are a literal "frame" motif; the four-chapter process
-  section mirrors the "Chapter One…" storytelling device used on the
-  studio's own demo site.
-- All imagery is CSS/SVG — no real client photos are used, since the actual
-  photos on the demo site belong to a real couple.
-- Pricing is intentionally omitted (three package tiers list scope only) —
-  add real numbers once you have them.
+- **Palette:** warm ivory paper, deep botanical green, dusty rose, antique gold —
+  pulling "florals" (green/rose) and "frames" (gold corner brackets) from the brand
+  name rather than a generic template look. (Tokens in `tailwind.config.ts` +
+  `app/globals.css`.)
+- **Signature motifs:** gold corner "frame" brackets; a multi-chapter storytelling
+  "Chapter One…" device that mirrors the demo site's narrative style.
+- **Pricing is intentionally omitted** — package tiers list scope only. Add real
+  numbers when available.
+- **All demo photography is Unsplash placeholder** and should be swapped for real
+  Florals & Frames / client imagery when available. (`public/images/` is currently
+  empty.)
 
 ## Getting started
 
@@ -35,38 +97,24 @@ npm install
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Then open <http://localhost:3000>.
 
-## Where to edit
+> Note: the sibling demo repo (`my-first-website`) also runs on port 3000, so only
+> run one at a time, or start this on another port: `PORT=3001 npm run dev`.
 
-| Section | File |
-|---|---|
-| Hero | `components/Hero.tsx` |
-| Manifesto | `components/Manifesto.tsx` |
-| Process ("Four Chapters") | `components/Process.tsx` |
-| Feature grid | `components/Features.tsx` |
-| Case study | `components/Showcase.tsx` |
-| Packages | `components/Packages.tsx` |
-| Final CTA | `components/FinalCta.tsx` |
-| Footer | `components/Footer.tsx` |
-| Colors / fonts | `tailwind.config.ts`, `app/layout.tsx` |
+## Working preferences (the user)
 
-The WhatsApp number (`+91 70207 27961`) and link text are repeated across
-`Header.tsx`, `Hero.tsx`, `Packages.tsx`, `FinalCta.tsx` and `Footer.tsx` —
-update all five if it ever changes.
+- Wants **options/opinions** before big changes.
+- **Reviews locally first, then explicitly says "push."** Do NOT push without being
+  asked — make changes locally, verify (build/dev/DOM), report, and wait.
+- The in-app preview pane is often hidden (screenshots time out); verify via the
+  built HTML / DOM / console and be honest about what wasn't visually confirmed.
 
-## 2026 cinematic landing-page redesign
+## Roadmap / open TODOs
 
-The landing page was redesigned as an editorial, image-led wedding experience with GSAP/ScrollTrigger loaded client-side from jsDelivr.
-
-Key interactions:
-- cinematic parallax hero
-- intro image collage with reveal + parallax motion
-- desktop pinned three-chapter story stack
-- desktop horizontal template showcase tied to scroll
-- mobile-native horizontal template swipe fallback
-- masked image reveals and staggered content entrances
-- expanding full-screen final CTA image
-- prefers-reduced-motion support
-
-Photography used in the demo is loaded from Unsplash and should be replaced by Florals & Frames/client imagery when available.
+- **Real pricing** for the three package tiers.
+- **Replace Unsplash placeholders** with real Florals & Frames / client photos in
+  `public/images/`.
+- Consider whether the **legacy section components** should be deleted to avoid
+  confusion (they're dead code right now).
+- Recurring reminder: **purge Hostinger CDN cache after every deploy.**

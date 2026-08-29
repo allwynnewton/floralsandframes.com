@@ -13,12 +13,17 @@ const EMAIL_URL = `mailto:${EMAIL}?subject=${encodeURIComponent(
 )}`;
 
 const PHOTOS = {
-  hero: "https://images.unsplash.com/photo-1731576089245-c2ac9dc7a158?auto=format&fit=crop&fm=jpg&q=88&w=2400",
+  hero: "/images/hero.jpg",
   chapel: "https://images.unsplash.com/photo-1704281657558-352922cc0463?auto=format&fit=crop&fm=jpg&q=86&w=2200",
   stationery: "https://images.unsplash.com/photo-1758825178518-ca48833a6c57?auto=format&fit=crop&fm=jpg&q=86&w=2200",
-  couple: "https://images.unsplash.com/photo-1641807672584-0c6e999276a6?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+  couple: "/images/couple-church.jpg",
   bouquet: "https://images.unsplash.com/photo-1521520368710-3ab197656d60?auto=format&fit=crop&fm=jpg&q=86&w=1800",
-  veil: "https://images.unsplash.com/photo-1643330738336-933dd3c60276?auto=format&fit=crop&fm=jpg&q=86&w=1800",
+  veil: "/images/collage-feeling.jpg",
+  statement: "/images/statement-pheras.jpg",
+  invitation: "/images/invitation-sq.jpg",
+  story1: "/images/story-beginning.jpg",
+  story2: "/images/story-wedday.jpg",
+  story3: "/images/story-haldi.jpg",
 };
 
 declare global {
@@ -57,21 +62,25 @@ const stories = [
     kicker: "01 · Your beginning",
     title: "Your story, not a template.",
     body: "The first hello, the proposal, the places, the people and the tiny details only the two of you understand. We turn those moments into the narrative of your wedding website.",
-    image: PHOTOS.couple,
+    image: PHOTOS.story1,
+    alt: "Bride in tiara and veil holding a bouquet inside a softly lit church",
+    objectPosition: "50% 32%",
     label: "Love story timeline",
   },
   {
     kicker: "02 · Your wedding day",
     title: "Every detail, beautifully held.",
     body: "Ceremony timings, reception, directions, dress code, countdowns and travel notes live in one elegant place—easy for guests to find, beautiful enough to remember.",
-    image: PHOTOS.chapel,
+    image: PHOTOS.story2,
+    alt: "Bride and groom sharing a quiet moment under the veil",
     label: "Ceremony & venue guide",
   },
   {
     kicker: "03 · Your invitation",
     title: "A keepsake with a pulse.",
     body: "Typography, photography, music and motion are composed as one experience. The goal is simple: your guests should feel your wedding before they even reach the RSVP.",
-    image: PHOTOS.stationery,
+    image: PHOTOS.story3,
+    alt: "Couple showered with marigold petals during a joyful haldi ceremony",
     label: "Designed around your aesthetic",
   },
 ];
@@ -385,7 +394,7 @@ export default function LandingExperience() {
 
       <main>
         <section id="top" className="hero">
-          <img className="hero-media" src={PHOTOS.hero} alt="Newly married couple leaving a church" />
+          <img className="hero-media" src={PHOTOS.hero} alt="Bride and groom before a church spire in an open Goan field" />
           <div className="hero-shade" />
           <div className="hero-grain" />
 
@@ -436,7 +445,7 @@ export default function LandingExperience() {
 
             <div className="intro-visual" aria-label="Wedding details collage">
               <figure className="collage-main image-reveal">
-                <img src={PHOTOS.veil} alt="Bride wearing a veil" />
+                <img src={PHOTOS.veil} alt="Couple exchanging rings at a flower-filled Indian ceremony" />
                 <figcaption><span>01</span>the feeling</figcaption>
               </figure>
               <figure className="collage-small image-reveal">
@@ -444,7 +453,7 @@ export default function LandingExperience() {
                 <figcaption><span>02</span>the details</figcaption>
               </figure>
               <figure className="collage-wide image-reveal">
-                <img src={PHOTOS.stationery} alt="Wedding stationery" />
+                <img src={PHOTOS.invitation} alt="Wedding invitation card with rings and roses" />
                 <figcaption><span>03</span>the invitation</figcaption>
               </figure>
               <div className="intro-caption">A wedding website can be useful <em>and</em> beautiful.</div>
@@ -465,7 +474,7 @@ export default function LandingExperience() {
           <div className="story-visuals">
             {stories.map((story) => (
               <article className="story-card" key={story.kicker}>
-                <img src={story.image} alt="Wedding story visual" />
+                <img src={story.image} alt={story.alt} style={(story as { objectPosition?: string }).objectPosition ? { objectPosition: (story as { objectPosition?: string }).objectPosition } : undefined} />
                 <span>{story.label}</span>
               </article>
             ))}
@@ -512,7 +521,7 @@ export default function LandingExperience() {
                 <div className="demo-site-brand">Florals <i>&</i> Frames</div>
                 <div className="demo-site-copy">
                   <small>THE WEDDING OF</small>
-                  <strong>Sophia <i>&</i><br />Nathan</strong>
+                  <strong>Maria <i>&</i><br />Joel</strong>
                   <span>24 · 10 · 2026</span>
                 </div>
               </div>
@@ -544,7 +553,7 @@ export default function LandingExperience() {
         </section>
 
         <section className="statement-section">
-          <div className="statement-photo image-reveal"><img src={PHOTOS.stationery} alt="Elegant wedding invitation stationery" /></div>
+          <div className="statement-photo image-reveal"><img src={PHOTOS.statement} alt="Bride and groom at the sacred fire during a Hindu wedding ceremony" /></div>
           <div className="statement-copy motion-up">
             <span className="section-label">The design test</span>
             <p className="statement-quote">A guest should know the wedding is <em>yours</em> before they even read your names.</p>
@@ -572,7 +581,7 @@ export default function LandingExperience() {
         </section>
 
         <section className="final-cta">
-          <img className="final-photo" src={PHOTOS.couple} alt="Wedding couple" />
+          <img className="final-photo" src={PHOTOS.couple} alt="Bride and groom outside the Basilica of Bom Jesus in Goa" />
           <div className="final-overlay" />
           <div className="final-content motion-up">
             <span className="section-label light">Your story starts here</span>
@@ -602,7 +611,10 @@ export default function LandingExperience() {
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">WhatsApp ↗</a>
             <a href={EMAIL_URL}>Email ↗</a>
           </div>
-          <small>© {new Date().getFullYear()} Florals & Frames. Made for love stories.</small>
+          <small>
+            © {new Date().getFullYear()} Florals & Frames. Made for love stories.
+            <span className="footer-disclaimer">Photography shown is sample &amp; free-stock imagery for demonstration only—all rights and credit belong to the original photographers and owners.</span>
+          </small>
         </div>
       </footer>
     </div>

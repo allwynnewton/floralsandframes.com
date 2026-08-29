@@ -312,6 +312,7 @@ h2 em, .statement-quote em, .footer-top h2 em { font-weight: 300; font-style: it
 .footer-links a { border-bottom: 1px solid transparent; padding-bottom: .3rem; }
 .footer-links a:hover { border-color: currentColor; }
 .footer-bottom small { grid-column: 1 / -1; margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--line); color: rgba(21,21,18,.4); font-size: .62rem; }
+.footer-disclaimer { display: block; margin-top: .5rem; max-width: 640px; line-height: 1.6; color: rgba(21,21,18,.32); }
 
 @media (max-width: 1180px) {
   .hero-note-card { display: none; }
