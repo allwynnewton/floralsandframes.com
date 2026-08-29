@@ -14,10 +14,10 @@ const EMAIL_URL = `mailto:${EMAIL}?subject=${encodeURIComponent(
 
 const PHOTOS = {
   hero: "/images/hero.jpg",
-  chapel: "https://images.unsplash.com/photo-1704281657558-352922cc0463?auto=format&fit=crop&fm=jpg&q=86&w=2200",
-  stationery: "https://images.unsplash.com/photo-1758825178518-ca48833a6c57?auto=format&fit=crop&fm=jpg&q=86&w=2200",
+  chapel: "/images/demo-preview.jpg",
   couple: "/images/couple-church.jpg",
   bouquet: "https://images.unsplash.com/photo-1521520368710-3ab197656d60?auto=format&fit=crop&fm=jpg&q=86&w=1800",
+  // (stationery/mobile-card removed — the demo browser stands on its own)
   veil: "/images/collage-feeling.jpg",
   statement: "/images/statement-pheras.jpg",
   invitation: "/images/invitation-sq.jpg",
@@ -87,7 +87,7 @@ const stories = [
 
 const services = [
   ["Story-led design", "A layout shaped around your relationship and wedding—not just your names dropped into a preset."],
-  ["Cinematic motion", "GSAP transitions, image reveals and scroll choreography that give the website rhythm without making it hard to use."],
+  ["It moves with your guests", "Every scroll reveals another moment—photos, words and details that move with your guests, so the whole site feels alive and considered."],
   ["RSVPs & guest details", "Attendance, dietary notes, venue details, timings and useful guest information in one polished place."],
   ["Mobile-first", "Most guests will open the link from WhatsApp, so the smallest screen gets the same care as desktop."],
   ["Music & galleries", "Bring your song, engagement photographs, family memories and films into the experience without clutter."],
@@ -438,7 +438,7 @@ export default function LandingExperience() {
               <div className="intro-proof">
                 <span><b>01</b>Personal story</span>
                 <span><b>02</b>Guest-ready details</span>
-                <span><b>03</b>Cinematic motion</span>
+                <span><b>03</b>Feels alive</span>
               </div>
               <a className="text-link" href="#stories">See how we tell it <span>↓</span></a>
             </div>
@@ -521,16 +521,12 @@ export default function LandingExperience() {
                 <div className="demo-site-brand">Florals <i>&</i> Frames</div>
                 <div className="demo-site-copy">
                   <small>THE WEDDING OF</small>
-                  <strong>Maria <i>&</i><br />Joel</strong>
-                  <span>24 · 10 · 2026</span>
+                  <strong>Brendon <i>&</i><br />Maria</strong>
+                  <span>28 · 12 · 2026</span>
                 </div>
               </div>
             </div>
-            <div className="demo-stamp">LIVE<br />DEMO</div>
-            <div className="demo-mobile-card">
-              <img src={PHOTOS.stationery} alt="Mobile wedding invitation preview" />
-              <div><span>Mobile-first</span><b>Beautiful from the WhatsApp tap.</b></div>
-            </div>
+            <a className="demo-stamp" href={DEMO_URL} target="_blank" rel="noreferrer" aria-label="Open the live demo">LIVE<br />DEMO</a>
           </div>
         </section>
 

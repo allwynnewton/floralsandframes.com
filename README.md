@@ -90,13 +90,16 @@ change only that spot** (that's why `statement`, `invitation`, `story1/2/3` exis
 | `story1` | `story-beginning.jpg` | Catholic bride portrait — story chapter 01 |
 | `story2` | `story-wedday.jpg` | Under-the-veil couple — story chapter 02 |
 | `story3` | `story-haldi.jpg` | Haldi celebration — story chapter 03 |
-| `chapel` | *Unsplash* | Wooden chapel — demo browser preview (section now titled "Timeless & Cinematic") |
-| `stationery` | *Unsplash* | Stationery flat-lay — demo mobile card |
+| `chapel` | `demo-preview.jpg` | Couple in a pine forest (temp4) — demo browser preview (section titled "Timeless & Cinematic"). Key name is legacy; it's no longer a chapel. |
 | `bouquet` | *Unsplash* | Bouquet — hero mini-photo, collage "the details", services photo |
 
 Direction: started Goan-Catholic ("Cathedral Romance"), then blended in **Hindu**
 weddings (haldi, pheras, ring ceremony) at the user's request. The fake browser
-preview's demo couple is **"Maria & Joel"** (was "Sophia & Nathan").
+preview's demo couple is **"Brendon & Maria"**, 28·12·2026 (matches the
+`card.png` invitation the demo photos were sourced with; was "Maria & Joel").
+The floating mobile invitation card that used to overlap the demo browser was
+**removed** — it collided with the left-aligned name/date; the browser mockup now
+stands on its own. (`card.jpg`/`card.png` remain local & untracked.)
 
 ### ⚠️ The mobile story section uses SEPARATE image URLs
 
@@ -192,14 +195,13 @@ runs it on **port 3941** instead.)
 ## Roadmap / open TODOs
 
 **Image swaps discussed but not yet done:**
-- **Demo browser preview** (`chapel` key / demo browser screen) →
-  swap to `temp2.jpg` (white Panjim church, a recognizable Goa landmark).
 - **Final CTA** still uses `couple-church.jpg` (the AI-ish Basilica couple) → swap
-  to a real landscape shot (candidates: `temp13` haldi, `temp4`, `temp5`, `temp9`).
+  to a real landscape shot (candidates: `temp13` haldi, `temp5`, `temp9`).
 - **Story chapter 03 copy mismatch:** kicker still reads "03 · Your invitation" /
   "A keepsake with a pulse" but the image is now a **haldi** — consider retuning
   the copy (e.g. "Your celebration").
-- Remaining Unsplash placeholders: `chapel`, `stationery`, `bouquet`.
+- Remaining Unsplash placeholder: `bouquet` (the demo `chapel`/`stationery` keys
+  are now local / removed).
 
 **Housekeeping / follow-ups:**
 - **Licensing:** confirm rights (or replace) any watermarked photographer photos
