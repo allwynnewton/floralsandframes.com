@@ -67,7 +67,80 @@ is in [`app/globals.css`](app/globals.css).
 - `EMAIL` / `EMAIL_URL` — `enquiries@floralsandframes.com` as a `mailto:` with a
   prefilled subject + body. Secondary contact, shown in the **final CTA** ("Prefer
   email?") and the **footer links** ("Email ↗").
-- `PHOTOS` — an object of **Unsplash** image URLs (hero, chapel, couple, etc.).
+- `PHOTOS` — the **single source of truth for every image** on the page (keys →
+  URLs). Now a mix of **local files** in `public/images/` and remaining Unsplash
+  URLs. See [Images & photography](#images--photography).
+
+## Images & photography
+
+Every image is defined once in the **`PHOTOS` object** at the top of
+`components/LandingExperience.tsx`. Sections reference `PHOTOS.<key>`; some keys
+are reused in several places, so **give a section its own key when you want to
+change only that spot** (that's why `statement`, `invitation`, `story1/2/3` exist).
+
+### Current mapping — localized to Goan-Catholic + Hindu
+
+| Key | File | Where it shows |
+|---|---|---|
+| `hero` | `hero.jpg` | Couple + church spire in a field (full-bleed hero) |
+| `couple` | `couple-church.jpg` | Basilica of Bom Jesus couple — **final CTA only** now (looks a touch AI-generated) |
+| `veil` | `collage-feeling.jpg` | Hindu ring ceremony — intro collage "the feeling" |
+| `statement` | `statement-pheras.jpg` | Hindu pheras — statement section |
+| `invitation` | `invitation-sq.jpg` | Acrylic invitation card ("Ezra & Karen") — intro collage "the invitation" |
+| `story1` | `story-beginning.jpg` | Catholic bride portrait — story chapter 01 |
+| `story2` | `story-wedday.jpg` | Under-the-veil couple — story chapter 02 |
+| `story3` | `story-haldi.jpg` | Haldi celebration — story chapter 03 |
+| `chapel` | *Unsplash* | Wooden chapel — demo browser preview (section now titled "Timeless & Cinematic") |
+| `stationery` | *Unsplash* | Stationery flat-lay — demo mobile card |
+| `bouquet` | *Unsplash* | Bouquet — hero mini-photo, collage "the details", services photo |
+
+Direction: started Goan-Catholic ("Cathedral Romance"), then blended in **Hindu**
+weddings (haldi, pheras, ring ceremony) at the user's request. The fake browser
+preview's demo couple is **"Maria & Joel"** (was "Sophia & Nathan").
+
+### ⚠️ The mobile story section uses SEPARATE image URLs
+
+The "One link. A whole story." section renders **two different ways**:
+
+- **Desktop (≥900px):** pinned scroll animation; cards use `PHOTOS.story1/2/3`.
+- **Mobile (≤899px):** `.story-visuals` is `display:none`; instead each
+  `.story-copy:nth-child(n)::before` shows a **background-image hardcoded in
+  `app/globals.css`** (~lines 373–375).
+
+**When you change a story image you MUST update both places**, or mobile and
+desktop show different photos (this exact bug shipped once, then was fixed). Both
+are now synced to `/images/story-*.jpg`. This is the **only** place in the CSS
+with hardcoded photo URLs — grep `globals.css` for `unsplash` / `background-image`
+before assuming a swap is complete.
+
+### Optimizing images (pipeline)
+
+No image tooling is installed in this repo — we borrow **sharp** from the sibling
+demo repo:
+
+```bash
+SHARP="C:/Users/allwy/Documents/GitHub/Claude-Code/my-first-website/node_modules/sharp"
+node -e "require('$SHARP')('in.jpg').rotate().resize({width:2400,withoutEnlargement:true}).jpeg({quality:82,mozjpeg:true,progressive:true}).toFile('out.jpg')"
+```
+
+- Hero / full-bleed → ~2400px wide; column / portrait slots → ~1500–1600px wide.
+- Quality 82, `mozjpeg`, progressive. Output is usually 150–500 KB (from multi-MB).
+- Use `.extract({...})` to pre-crop a portrait that must fill a square/landscape
+  frame (e.g. the invitation tile — `object-fit: cover` otherwise slices it).
+
+### Files & git hygiene
+
+- **Committed:** only images the site actually references (the 8 local files above).
+- **NOT committed (local only):** raw uploads `temp1–temp16.jpg` and benched/
+  superseded files (`hero-arms.jpg`, `invitation.jpg`, `statement-havan.jpg`,
+  `story-invite.jpg`, `pexels-*.jpg`). Multi-MB and unused; they show as untracked
+  in `git status`. A `.gitignore` rule could hide them (not added yet).
+- **Bench = alternates** kept for possible revert: `hero-arms.jpg` (Pexels
+  arms-raised hero), `statement-havan.jpg` (havan close-up), `story-invite.jpg`
+  (temp16, **Vietnamese** invitation flat-lay), `invitation.jpg` (tall crop).
+- **Footer disclaimer** (`.footer-disclaimer`, in the footer bottom bar) credits
+  free-stock / photography. ⚠️ **A credit line is not a license** — some temps are
+  watermarked photographer work (e.g. temp3 "shades 43"); confirm rights before go-live.
 
 ## Contact points on the page
 
@@ -86,9 +159,10 @@ is in [`app/globals.css`](app/globals.css).
   "Chapter One…" device that mirrors the demo site's narrative style.
 - **Pricing is intentionally omitted** — package tiers list scope only. Add real
   numbers when available.
-- **All demo photography is Unsplash placeholder** and should be swapped for real
-  Florals & Frames / client imagery when available. (`public/images/` is currently
-  empty.)
+- **Photography is now localized** (Goan-Catholic + Hindu) — see
+  [Images & photography](#images--photography). A few placeholder Unsplash shots
+  remain (`chapel`, `stationery`, `bouquet`) and should still be swapped for real
+  Florals & Frames / client imagery when available.
 
 ## Getting started
 
@@ -97,10 +171,15 @@ npm install
 npm run dev
 ```
 
-Then open <http://localhost:3000>.
+Then open <http://localhost:3000>. (The Claude Code `.claude/launch.json` preview
+runs it on **port 3941** instead.)
 
 > Note: the sibling demo repo (`my-first-website`) also runs on port 3000, so only
 > run one at a time, or start this on another port: `PORT=3001 npm run dev`.
+
+> ⚠️ **`npm run build` fails with `EPERM … .next/trace` while the dev server is
+> running** (Windows file lock). Stop the dev server first (and `rm -rf .next/trace`
+> if it's stale), then build.
 
 ## Working preferences (the user)
 
@@ -112,9 +191,26 @@ Then open <http://localhost:3000>.
 
 ## Roadmap / open TODOs
 
-- **Real pricing** for the three package tiers.
-- **Replace Unsplash placeholders** with real Florals & Frames / client photos in
-  `public/images/`.
-- Consider whether the **legacy section components** should be deleted to avoid
-  confusion (they're dead code right now).
-- Recurring reminder: **purge Hostinger CDN cache after every deploy.**
+**Image swaps discussed but not yet done:**
+- **Demo browser preview** (`chapel` key / demo browser screen) →
+  swap to `temp2.jpg` (white Panjim church, a recognizable Goa landmark).
+- **Final CTA** still uses `couple-church.jpg` (the AI-ish Basilica couple) → swap
+  to a real landscape shot (candidates: `temp13` haldi, `temp4`, `temp5`, `temp9`).
+- **Story chapter 03 copy mismatch:** kicker still reads "03 · Your invitation" /
+  "A keepsake with a pulse" but the image is now a **haldi** — consider retuning
+  the copy (e.g. "Your celebration").
+- Remaining Unsplash placeholders: `chapel`, `stationery`, `bouquet`.
+
+**Housekeeping / follow-ups:**
+- **Licensing:** confirm rights (or replace) any watermarked photographer photos
+  among `temp*.jpg` before publishing — the footer credit line is not a license.
+- `invitation-sq.jpg` card reads "Ezra & Karen" (not "Maria & Joel") — minor
+  name mismatch if anyone looks closely.
+- Consider a `.gitignore` rule for `temp*.jpg` + benched files to keep
+  `git status` clean.
+
+**Pre-existing:**
+- **Real pricing** for the three package tiers (currently scope-only).
+- Consider deleting the **legacy section components** (dead code — see Architecture).
+- Recurring reminder: **purge Hostinger CDN cache after every deploy** (and note
+  mobile browsers cache CSS/images aggressively — hard-refresh to verify).

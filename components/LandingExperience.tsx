@@ -494,8 +494,8 @@ export default function LandingExperience() {
         <section id="demo" className="demo-section">
           <div className="demo-copy motion-up">
             <span className="section-label">One live design · fully customizable</span>
-            <h2>Meet our first world:<br /><em>Cathedral Romance.</em></h2>
-            <p>We currently have one complete design direction—and we would rather show you one real experience than four fake choices. Think of it as the starting canvas, not the finished website.</p>
+            <h2>Meet our signature world:<br /><em>Timeless &amp; Cinematic.</em></h2>
+            <p>We've perfected one complete design direction—a full, living website you can explore end to end, not a static mockup. Think of it as your starting canvas: every photo, name, colour and story becomes yours to shape.</p>
             <ul>
               <li><span>01</span>Replace every photo, name, date and story</li>
               <li><span>02</span>Shift the colors, typography and section order</li>
@@ -516,7 +516,7 @@ export default function LandingExperience() {
                 <em>live preview</em>
               </div>
               <div className="demo-browser-screen">
-                <img src={PHOTOS.chapel} alt="Cathedral Romance wedding website preview" />
+                <img src={PHOTOS.chapel} alt="Timeless and cinematic wedding website preview" />
                 <div className="demo-site-shade" />
                 <div className="demo-site-brand">Florals <i>&</i> Frames</div>
                 <div className="demo-site-copy">
