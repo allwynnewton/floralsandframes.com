@@ -370,9 +370,9 @@ h2 em, .statement-quote em, .footer-top h2 em { font-weight: 300; font-style: it
   .story-copy { visibility: visible !important; opacity: 1 !important; transform: none !important; pointer-events: auto !important; padding: 0 0 4rem; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 4rem; }
   .story-copy:last-child { margin-bottom: 0; }
   .story-copy::before { content: ""; display: block; width: 100%; aspect-ratio: 4/5; margin-bottom: 1.7rem; background-size: cover; background-position: center; }
-  .story-copy:nth-child(1)::before { background-image: url("https://images.unsplash.com/photo-1641807672584-0c6e999276a6?auto=format&fit=crop&fm=jpg&q=82&w=1000"); }
-  .story-copy:nth-child(2)::before { background-image: url("https://images.unsplash.com/photo-1704281657558-352922cc0463?auto=format&fit=crop&fm=jpg&q=82&w=1000"); }
-  .story-copy:nth-child(3)::before { background-image: url("https://images.unsplash.com/photo-1758825178518-ca48833a6c57?auto=format&fit=crop&fm=jpg&q=82&w=1000"); }
+  .story-copy:nth-child(1)::before { background-image: url("/images/story-beginning.jpg"); }
+  .story-copy:nth-child(2)::before { background-image: url("/images/story-wedday.jpg"); }
+  .story-copy:nth-child(3)::before { background-image: url("/images/story-haldi.jpg"); }
 
   .demo-section { display: block; padding: 7rem 22px 8rem; }
   .demo-copy { max-width: none; }
